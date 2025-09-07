@@ -1,0 +1,62 @@
+on fs
+    start boot-hal-1-2
+    symlink /dev/block /dev/block/bootdevice
+    symlink /dev/block/sda /dev/block/mmcblk0boot0
+    symlink /dev/block/sdb /dev/block/mmcblk0boot1
+    install_keyring
+    mkdir /mnt/vendor/persist 0755 system system
+    mkdir /persist 0755 system system
+    mount_all /system/etc/persist.fstab --early
+    restorecon_recursive /mnt/vendor/persist
+    mkdir /mnt/vendor/persist/data 0755 system system
+    mount none /mnt/vendor/persist /persist bind
+    chmod 0660 /dev/tee0
+    chmod 0660 /dev/teepriv0
+    chown system system /dev/tee0
+    chown system system /dev/teepriv0
+    chmod 0660 /dev/rpmb0
+    chmod 0660 /dev/mmcblk0rpmb
+    chmod 0660 /dev/0:0:0:49476
+    chmod 0660 /dev/ufs-bsg0
+    chmod 0666 /dev/kmsg
+    chown system system /dev/rpmb0
+    chown system system /dev/mmcblk0rpmb
+    chown system system /dev/0:0:0:49476
+    chown system system /dev/ufs-bsg0
+    start mitee-helper
+    setprop vendor.teefs_state ready
+    setprop ro.hardware.gatekeeper mitee
+
+on post-fs
+    start health-hal-2-1
+
+on post-fs-data
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/2-005a/f0_save
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/2-005a/osc_save
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/3-005a/osc_save
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/2-005a/custom_wave
+    chmod 0666  /sys/bus/i2c/drivers/aw8697_haptic/2-005a/custom_wave
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/2-005a/custom_wave
+    chmod 0666  /sys/bus/i2c/drivers/aw8697_haptic/2-005a/custom_wave
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/3-005a/custom_wave
+    chmod 0666  /sys/bus/i2c/drivers/aw8697_haptic/3-005a/custom_wave
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/0-005a/custom_wave
+    chmod 0666  /sys/bus/i2c/drivers/aw8697_haptic/0-005a/custom_wave
+    chown system system /sys/bus/i2c/drivers/awinic_haptic/1-005a/f0_save
+    chown system system /sys/bus/i2c/drivers/awinic_haptic/1-005a/osc_save
+    chown system system /sys/bus/i2c/drivers/awinic_haptic/1-005a/custom_wave
+    chmod 0666  /sys/bus/i2c/drivers/awinic_haptic/1-005a/custom_wave
+    chown system system /sys/bus/i2c/drivers/awinic_haptic/0-005a/f0_save
+    chown system system /sys/bus/i2c/drivers/awinic_haptic/0-005a/osc_save
+    chown system system /sys/bus/i2c/drivers/awinic_haptic/0-005a/custom_wave
+    chmod 0666  /sys/bus/i2c/drivers/awinic_haptic/0-005a/custom_wave
+ 
+on boot
+    start mtk.plpath.utils.link
+    setprop sys.usb.config adb
+
+on property:twrp.modules.loaded=true
+    start vendor-watchdog
+    
+on property:sys.vendor.watchdog=ready
+    start vibratorfeature-hal-service
