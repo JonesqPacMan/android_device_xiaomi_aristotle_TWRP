@@ -1,0 +1,17 @@
+# Dynamic Partitions
+ro.boot.dynamic_partitions=true
+
+# Fstab
+ro.postinstall.fstab.prefix=/system
+
+# USB MTP
+ro.sys.usb.storage.type=mtp
+
+# Crypto
+ro.crypto.volume.filenames_mode=aes-256-cts
+
+# Platform
+ro.vendor.mediatek.platform=MT6895
+
+# Timezone
+persist.sys.timezone="Asia/Jakarta"
