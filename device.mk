@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2022 The TWRP Open Source Project
+# Copyright (C) 2025 The TWRP Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,6 +15,27 @@
 #
 
 DEVICE_PATH := device/xiaomi/aristotle
+
+# Configure base.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
+
+# Configure core_64_bit_only.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
+
+# Configure Virtual A/B
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
+
+# Configure virtual_ab compression.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression.mk)
+
+# Configure emulated_storage.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
+
+# Configure launch_with_vendor_ramdisk.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk)
+
+# Configure twrp common.mk
+$(call inherit-product, vendor/twrp/config/common.mk)
 
 # API
 PRODUCT_SHIPPING_API_LEVEL := 31
@@ -87,10 +108,6 @@ PRODUCT_PACKAGES_DEBUG += \
 
 # Dynamic
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
-
-# DRM
-PRODUCT_PACKAGES += \
-    android.hardware.drm@1.4
 
 # Health
 PRODUCT_PACKAGES += \
