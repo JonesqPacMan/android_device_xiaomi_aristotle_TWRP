@@ -13,7 +13,7 @@ Basic   | Spec Sheet
 CPU     | Octa-core CPU with 4x Arm Cortex-A78 up to 3.1GHz
 Chipset | Mediatek Dimensity 8200
 GPU     | Mali-G610 MC6
-Memory  | 8/12 GB RAM (LPDDR5T 9600Mbps)
+Memory  | 8/12 GB RAM
 Shipped Android Version | 13
 Storage | 256 GB (UFS 3.1)
 Battery | Li-Po 5000 mAh, non-removable
@@ -28,7 +28,7 @@ Works:
 - [X] ADB
 - [X] Decryption (Android 15)
 - [X] Display
-- [X] Fasbootd
+- [X] Fastbootd
 - [X] Flashing
 - [X] MTP
 - [X] Sideload
