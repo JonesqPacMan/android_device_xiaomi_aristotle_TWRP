@@ -41,6 +41,12 @@ $(call inherit-product, vendor/twrp/config/common.mk)
 PRODUCT_SHIPPING_API_LEVEL := 31
 PRODUCT_TARGET_VNDK_VERSION := 35
 
+# Enable Fuse Passthrough
+PRODUCT_PROPERTY_OVERRIDES += persist.sys.fuse.passthrough.enable=true
+
+# TWRP in Vendor Boot
+PRODUCT_PROPERTY_OVERRIDES += ro.twrp.vendor_boot=true
+
 # A/B
 AB_OTA_UPDATER := true
 ENABLE_VIRTUAL_AB := true
